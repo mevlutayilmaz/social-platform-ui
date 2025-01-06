@@ -42,7 +42,7 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    if (currentUser) {
+    if (!currentUser) {
       return <Navigate to="/login" />;
     }
 
@@ -50,7 +50,7 @@ function App() {
   };
 
   const LoggedInRoute = ({ children }) => {
-    if (!currentUser) {
+    if (currentUser) {
       return <Navigate to="/" />;
     }
 
