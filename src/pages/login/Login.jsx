@@ -1,34 +1,15 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
+import { useForm } from 'react-hook-form';
 import "./login.scss";
 
 const Login = () => {
-  const [inputs, setInputs] = useState({
-    username: "",
-    password: "",
-  });
-  const [err, setErr] = useState(null);
+  const { register, handleSubmit } = useForm();
+  const { login } = useContext(AuthContext);
 
-  //const navigate = useNavigate();
-  //const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const onSubmit = async (data) => await login(data);
 
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-  const { currentUser, login } = useContext(AuthContext);
-
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const res = await login(inputs);
-      //navigate("/");
-    } catch (err) {}
-  };
-
-  // if (currentUser) {
-  //   return <Navigate to="/" />;
-  // }
   return (
     <div className="login">
       <div className="card">
@@ -46,21 +27,24 @@ const Login = () => {
         </div>
         <div className="right">
           <h1>Login</h1>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
+              {...register('username', { required: 'Username is required' })}
               placeholder="Username"
               name="username"
-              onChange={handleChange}
+              id="username"
+              required
             />
             <input
               type="password"
+              {...register('password', { required: 'Password is required' })}
               placeholder="Password"
               name="password"
-              onChange={handleChange}
+              id="password"
+              required
             />
-            {err && err}
-            <button onClick={handleLogin}>Login</button>
+            <button type="submit">Login</button>
           </form>
         </div>
       </div>

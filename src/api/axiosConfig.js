@@ -40,31 +40,9 @@ api.interceptors.response.use(
     }
     return response
   },
-  error => {
+  error => {    
     if (error.response) {
-      switch (error.response.status) {
-        case 400:
-          showWarningToast('Geçersiz istek. Lütfen girdiğiniz bilgileri kontrol edin.');
-          break;
-        case 401:
-          showWarningToast('Yetkisiz erişim!');
-          break;
-        case 403:
-          showWarningToast('Bu işlemi yapmaya yetkiniz yok.');
-          break;
-        case 404:
-          showWarningToast('Aradığınız kaynak bulunamadı.');
-          break;
-        case 500:
-          showErrorToast('Sunucu hatası. Lütfen daha sonra tekrar deneyin.');
-          break;
-        case 503:
-          showErrorToast('Hizmet kullanılamıyor. Lütfen daha sonra tekrar deneyin.');
-          break;
-        default:
-          showErrorToast('Bilinmeyen bir hata oluştu.');
-          break;
-      }
+      error.response.data.errors.map((message) => showWarningToast(message))
     } else if (error.request) {
       showErrorToast('Sunucuya ulaşılamıyor. İnternet bağlantınızı kontrol edin.');
       

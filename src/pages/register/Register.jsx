@@ -1,35 +1,13 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./register.scss";
-import axios from "axios";
+import { useForm } from "react-hook-form";
+import { createUser } from "../../api/users"
 
 const Register = () => {
-  const [inputs, setInputs] = useState({
-    username: "",
-    email: "",
-    password: "",
-    name: "",
-  });
-  const [err, setErr] = useState(null);
+  const { register, handleSubmit } = useForm();
 
-  const handleChange = (e) => {
-    setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
-
-  const navigate = useNavigate();
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-
-    try {
-      await axios.post("http://localhost:8800/api/auth/register", inputs);
-      navigate("/");
-    } catch (err) {
-      setErr(err.response.data);
-    }
-  };
-
-  console.log(err);
+  const onSubmit = async (data) =>
+    await createUser(data.nameSurname, data.username, data.email, data.password, data.passwordConfirm);
 
   return (
     <div className="register">
@@ -48,33 +26,48 @@ const Register = () => {
         </div>
         <div className="right">
           <h1>Register</h1>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"
+              {...register('nameSurname', { required: 'NameSurname is required' })}
+              placeholder="NameSurname"
+              name="nameSurname"
+              id="nameSurname"
+              required
+            />
+            <input
+              type="text"
+              {...register('username', { required: 'Username is required' })}
               placeholder="Username"
               name="username"
-              onChange={handleChange}
+              id="username"
+              required
             />
             <input
               type="email"
+              {...register('email', { required: 'Email is required' })}
               placeholder="Email"
               name="email"
-              onChange={handleChange}
+              id="email"
+              required
             />
             <input
               type="password"
+              {...register('password', { required: 'Password is required' })}
               placeholder="Password"
               name="password"
-              onChange={handleChange}
+              id="password"
+              required
             />
             <input
-              type="text"
-              placeholder="Name"
-              name="name"
-              onChange={handleChange}
+              type="password"
+              {...register('passwordConfirm', { required: 'Password Confirm is required' })}
+              placeholder="Password Confirm"
+              name="passwordConfirm"
+              id="passwordConfirm"
+              required
             />
-            {err && err}
-            <button onClick={handleClick}>Register</button>
+            <button type="submit">Register</button>
           </form>
         </div>
       </div>

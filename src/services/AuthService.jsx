@@ -2,7 +2,7 @@ import { refreshTokenLogin } from "../api/auth";
 
 class AuthService {
   static getUsername() {
-    const username = localStorage.getItem("username");
+    const username = localStorage.getItem("username");    
     return username ? username : null;
   }
 
@@ -61,6 +61,7 @@ class AuthService {
 
   static logout() {
     localStorage.removeItem("authToken");
+    localStorage.removeItem("username");
   }
 }
 

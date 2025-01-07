@@ -53,8 +53,8 @@ const Navbar = () => {
         <EmailOutlinedIcon />
         <NotificationsOutlinedIcon />
         <div className="user">
-          <img src={"/upload/" + currentUser.profilePic} alt="" />
-          <span>{currentUser.name}</span>
+          {/* <img src={"/upload/" + currentUser.profilePic} alt="" />
+          <span>{currentUser.name}</span> */}
         </div>
         <LogoutIcon onClick={hanleClick} />
       </div>

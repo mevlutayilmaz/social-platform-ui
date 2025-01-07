@@ -17,8 +17,7 @@
       flex: 1;
       background: linear-gradient(rgba(39, 11, 96, 0.5), rgba(39, 11, 96, 0.5)),
         url("https://images.pexels.com/photos/3228727/pexels-photo-3228727.jpeg?auto=compress&cs=tinysrgb&w=1600")
-          center;
-      background-size: cover;
+          center / cover no-repeat;
       padding: 50px;
       display: flex;
       flex-direction: column;
@@ -29,14 +28,14 @@
         font-size: 100px;
         line-height: 100px;
       }
-      
+
       p {
       }
 
       span {
         font-size: 14px;
       }
-      
+
       button {
         width: 50%;
         padding: 10px;
@@ -57,20 +56,20 @@
       justify-content: center;
 
       h1 {
-      color: #555;
+        color: #555;
       }
-      
+
       form {
         display: flex;
         flex-direction: column;
         gap: 30px;
-        
+
         input {
-        border: none;
-        border-bottom: 1px solid lightgray;
-        padding: 20px 10px;
+          border: none;
+          border-bottom: 1px solid lightgray;
+          padding: 20px 10px;
         }
-        
+
         button {
           width: 50%;
           padding: 10px;
@@ -79,6 +78,78 @@
           color: white;
           font-weight: bold;
           cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login {
+    .card {
+      flex-direction: column;
+      width: 90%;
+
+      .left {
+        background-size: contain; /* Görseli içeride tut */
+        background-position: center; /* Görseli ortala */
+        padding: 30px;
+
+        h1 {
+          font-size: 60px;
+          line-height: 70px;
+        }
+
+        button {
+          width: 70%; /* Butonu daha büyük yap */
+        }
+      }
+
+      .right {
+        padding: 30px;
+
+        form {
+          input {
+            padding: 15px 10px; /* Daha küçük padding */
+          }
+
+          button {
+            width: 70%; /* Daha geniş buton */
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .login {
+    .card {
+      .left {
+        background-size: cover; /* Görseli kaplama */
+        background-position: top; /* Odak noktası üstte */
+        h1 {
+          font-size: 40px;
+          line-height: 50px;
+        }
+
+        button {
+          width: 80%; /* Mobilde daha geniş buton */
+        }
+      }
+
+      .right {
+        padding: 20px;
+
+        form {
+          input {
+            padding: 12px 8px; /* Daha küçük padding */
+          }
+
+          button {
+            width: 80%; /* Daha geniş buton */
+          }
         }
       }
     }

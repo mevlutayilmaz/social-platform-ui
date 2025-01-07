@@ -16,6 +16,7 @@ import { useContext } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/authContext";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import AuthService from "./services/AuthService";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -42,15 +43,15 @@ function App() {
   };
 
   const ProtectedRoute = ({ children }) => {
-    if (!currentUser) {
+    if (!AuthService.getUsername()) {
       return <Navigate to="/login" />;
     }
 
     return children;
   };
 
-  const LoggedInRoute = ({ children }) => {
-    if (currentUser) {
+  const LoggedInRoute = ({ children }) => {    
+    if (AuthService.getUsername()) {
       return <Navigate to="/" />;
     }
 
