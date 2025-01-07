@@ -1,17 +1,16 @@
 import Post from "../post/Post";
 import "./posts.scss";
 import { useQuery } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
+import { getAllPosts } from "../../api/posts"
+import { useState } from "react";
 
-const Posts = ({ userId }) => {
-  const { isLoading, error, data } = useQuery(["posts"], () =>
-    makeRequest.get("/posts?userId=" + userId).then((res) => {
-      const filteredData = res.data.filter(
-        (v, i, a) => a.findIndex((v2) => v2.id === v.id) === i
-      );
-      return filteredData;
-    })
-  );
+const Posts = () => {
+  const [pageCount, setPageCount] = useState(1);
+  const [itemCount, setItemCount] = useState(5);
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["posts", pageCount, itemCount],
+    queryFn: getAllPosts,
+  });
 
   return (
     <div className="posts">

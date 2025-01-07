@@ -16,6 +16,7 @@ api.interceptors.request.use(
     if (config.requiresAuth) {
       try {
         const token = await AuthService.getAccessToken();
+        
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         } else {
