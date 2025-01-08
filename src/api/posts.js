@@ -1,8 +1,30 @@
-import api from './axiosConfig';
+import api from "./axiosConfig";
 
-export const getAllPosts = async (pageCount = 1, itemCount = 5) => {
+export const getAllPosts = async (pageCount = 1, itemCount = 10) => {
   try {
     const response = await api.get("/posts/getAllPosts", { params: { pageCount, itemCount }, requiresAuth: true });
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
+}
+
+export const createPost = async (formData) => {
+  try {
+    const response = await api.post("/posts/createPost", formData, {
+      requiresAuth: true,
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }});
+      return response.data;
+  } catch (error) {
+    console.error("API isteği başarısız:", error);
+  }
+};
+
+export const deletePost = async (postId) => {
+  try {
+    const response = await api.delete(`/posts/deletePost/${postId}`, { requiresAuth: true });
     return response.data;
   } catch (error) {
     console.error('API isteği başarısız:', error);

@@ -8,7 +8,7 @@ import Loading from "../loading/Loading";
 
 const Posts = () => {
   const [pageCount, setPageCount] = useState(1);
-  const [itemCount, setItemCount] = useState(5);
+  const [itemCount, setItemCount] = useState(30);
   const { isLoading, error, data } = useQuery({
     queryKey: ["posts", pageCount, itemCount],
     queryFn: getAllPosts,

@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
 import { useContext, useState } from "react";
 import moment from "moment";
-import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../context/authContext";
+import { likePost, undoLikePost } from"../../api/likes"
+import { deletePost } from "../../api/posts";
 
 const Post = ({ post }) => {
   const { currentUser } = useContext(AuthContext);
@@ -17,45 +19,28 @@ const Post = ({ post }) => {
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-
-  // const { isLoading, error, data } = useQuery(["likes", post.id], () =>
-  //   makeRequest.get("/likes?postId=" + post.id).then((res) => {
-  //     return res.data;
-  //   })
-  // );
-
   const queryClient = useQueryClient();
 
-  // const mutation = useMutation(
-  //   (liked) => {
-  //     if (liked) return makeRequest.delete("/likes?postId=" + post.id);
-  //     return makeRequest.post("/likes", { postId: post.id });
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       // Invalidate and refetch
-  //       queryClient.invalidateQueries(["likes"]);
-  //     },
-  //   }
-  // );
-  // const deleteMutation = useMutation(
-  //   (postId) => {
-  //     return makeRequest.delete("/posts/" + postId);
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       // Invalidate and refetch
-  //       queryClient.invalidateQueries(["posts"]);
-  //     },
-  //   }
-  // );
+  const mutation = useMutation({
+    mutationFn: async (isLiked) => isLiked ? await undoLikePost(post.id) : await likePost(post.id),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["posts"]);
+    }
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deletePost,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["posts"]);
+    }
+  });
 
   const handleLike = () => {
-    // mutation.mutate(data.includes(currentUser.id));
+    mutation.mutate(post.isLiked);
   };
 
   const handleDelete = () => {
-    // deleteMutation.mutate(post.id);
+    deleteMutation.mutate(post.id);
   };
 
   return (
@@ -85,18 +70,14 @@ const Post = ({ post }) => {
         </div>
         <div className="info">
           <div className="item">
-            {/* {isLoading ? (
-              "loading"
-            ) : data.includes(currentUser.id) ? (
+            {post.isLiked ? (
               <FavoriteOutlinedIcon
                 style={{ color: "red" }}
                 onClick={handleLike}
               />
             ) : (
               <FavoriteBorderOutlinedIcon onClick={handleLike} />
-            )} */}
-              <FavoriteBorderOutlinedIcon onClick={handleLike} />
-
+            )}
             {post.likeCount} Likes
           </div>
           <div className="item" onClick={() => setCommentOpen(!commentOpen)}>

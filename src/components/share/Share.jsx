@@ -5,45 +5,33 @@ import Friend from "../../assets/friend.png";
 import { useContext, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { AuthContext } from "../../context/authContext";
+import { createPost } from "../../api/posts";
 
 const Share = () => {
   const { currentUser } = useContext(AuthContext);
-
   const [file, setFile] = useState(null);
-  const [desc, setDesc] = useState("");
-
-  const upload = async () => {
-    // try {
-    //   const formData = new FormData();
-    //   formData.append("file", file);
-    //   const res = await makeRequest.post("/upload", formData);
-    //   return res.data;
-    // } catch (err) {
-    //   console.log(err);
-    // }
-  };
+  const [content, setContent] = useState("");
 
   const queryClient = useQueryClient();
 
-  // const mutation = useMutation(
-  //   (newPost) => {
-  //     return makeRequest.post("/posts", newPost);
-  //   },
-  //   {
-  //     onSuccess: () => {
-  //       // Invalidate and refetch
-  //       queryClient.invalidateQueries(["posts"]);
-  //     },
-  //   }
-  // );
+  const mutation = useMutation({
+    mutationFn: createPost,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["posts"]);
+    }
+  });
 
   const handleClick = async (e) => {
-    // e.preventDefault();
-    // let imgUrl = "";
-    // if (file) imgUrl = await upload();
-    // mutation.mutate({ desc, img: imgUrl });
-    // setDesc("");
-    // setFile(null);
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("Content", content);
+    if (file) {
+      formData.append("File", file);
+    }
+
+    mutation.mutate(formData);
+    setContent("");
+    setFile(null);
   };
 
   return (
@@ -55,8 +43,8 @@ const Share = () => {
             <input
               type="text"
               placeholder={`What's on your mind ${currentUser.nameSurname}?`}
-              onChange={(e) => setDesc(e.target.value)}
-              value={desc}
+              onChange={(e) => setContent(e.target.value)}
+              value={content}
             />
           </div>
           <div className="right">
