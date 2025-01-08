@@ -3,6 +3,8 @@ import "./posts.scss";
 import { useQuery } from "@tanstack/react-query";
 import { getAllPosts } from "../../api/posts"
 import { useState } from "react";
+import Error from "../error/Error";
+import Loading from "../loading/Loading";
 
 const Posts = () => {
   const [pageCount, setPageCount] = useState(1);
@@ -15,9 +17,9 @@ const Posts = () => {
   return (
     <div className="posts">
       {error
-        ? "Something went wrong!"
+        ? <Error />
         : isLoading
-        ? "loading"
+        ? <Loading />
         : data.map((post) => <Post post={post} key={post.id} />)}
     </div>
   );

@@ -10,6 +10,15 @@ class AuthService {
     localStorage.setItem("username", username);
   }
 
+  static getCurrentUser() {
+    const user = localStorage.getItem("currentUser");    
+    return user ? JSON.parse(user) : null;
+  }
+
+  static setCurrentUser(user) {
+    localStorage.setItem("currentUser", JSON.stringify(user));
+  }
+
   static getToken() {
     const token = localStorage.getItem("authToken");
     return token ? JSON.parse(token) : null;
@@ -62,6 +71,7 @@ class AuthService {
   static logout() {
     localStorage.removeItem("authToken");
     localStorage.removeItem("username");
+    localStorage.removeItem("currentUser");
   }
 }
 

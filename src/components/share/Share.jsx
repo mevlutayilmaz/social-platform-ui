@@ -2,12 +2,13 @@ import "./share.scss";
 import Image from "../../assets/img.png";
 import Map from "../../assets/map.png";
 import Friend from "../../assets/friend.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
-import AuthService from "../../services/AuthService";
+import { AuthContext } from "../../context/authContext";
 
 const Share = () => {
+  const { currentUser } = useContext(AuthContext);
+
   const [file, setFile] = useState(null);
   const [desc, setDesc] = useState("");
 
@@ -50,10 +51,10 @@ const Share = () => {
       <div className="container">
         <div className="top">
           <div className="left">
-            <img src="https://png.pngtree.com/png-clipart/20230927/original/pngtree-man-avatar-image-for-profile-png-image_13001877.png" alt="" />
+            <img src={currentUser.profilePicture} alt="" />
             <input
               type="text"
-              placeholder={`What's on your mind ${AuthService.getUsername()}?`}
+              placeholder={`What's on your mind ${currentUser.nameSurname}?`}
               onChange={(e) => setDesc(e.target.value)}
               value={desc}
             />

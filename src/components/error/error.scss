@@ -1,0 +1,18 @@
+.error-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 100px;
+    min-height: 80px;
+    border-radius: 10px;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+  
+    .error-icon {
+      font-size: 3rem;
+      color: #ff4d4f;
+    }
+  }

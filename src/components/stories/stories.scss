@@ -11,19 +11,18 @@
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 
-    &::-webkit-scrollbar {
-      height: 8px;
-    }
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
 
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(128, 128, 128, 0.5);
-      border-radius: 4px;
-    }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(128, 128, 128, 0.5);
+    border-radius: 4px;
+  }
 
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
 
   @include mobile {
     height: 50px;
@@ -48,7 +47,7 @@
     scroll-snap-align: start;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-    &:hover{
+    &:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     }
@@ -64,21 +63,45 @@
       object-fit: cover;
       object-position: center;
     }
-    span {
+
+    .story-info { /* story-info div için stiller */
       position: absolute;
       bottom: 10px;
       left: 10px;
+      display: flex;
+      align-items: center;
       color: white;
       font-weight: 500;
+      background-color: rgba(0, 0, 0, 0.4); // Yarı saydam siyah arka plan
+        padding: 3px 5px;
+        border-radius: 4px;
+        backdrop-filter: blur(5px); // Blur efekti
+
       @include mobile {
         display: none;
       }
+      .story-profile-pic {
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        margin-right: 5px;
+        object-fit: cover;
+      }
+    }
+    &.create-story { /* create-story class'ı için özel stil */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+        img {
+          object-fit: cover;
+          object-position: center;
+        }
     }
 
-    button {
+    .create-button { /* create-button class'ı için özel stil */
       position: absolute;
-      bottom: 40px;
-      left: 10px;
+      bottom: 10px;
+      right: 10px;
       color: white;
       background-color: #5271ff;
       border: 2px solid white;
@@ -93,15 +116,13 @@
       justify-content: center;
 
       @include mobile {
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-         width: 25px;
-         height: 25px;
-         font-size: 16px;
-         border: 1px solid white;
+        position: absolute;
+        right: 5px;
+        bottom: 5px;
+        width: 25px;
+        height: 25px;
+        font-size: 16px;
+        border: 1px solid white;
       }
     }
   }

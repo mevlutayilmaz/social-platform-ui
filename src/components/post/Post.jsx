@@ -6,13 +6,14 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
-import AuthService from "../../services/AuthService";
+import { AuthContext } from "../../context/authContext";
 
 const Post = ({ post }) => {
+  const { currentUser } = useContext(AuthContext);
+
   const [commentOpen, setCommentOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -74,7 +75,7 @@ const Post = ({ post }) => {
             </div>
           </div>
           <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
-          {menuOpen && post.user.username === AuthService.getUsername() && (
+          {menuOpen && post.user.username === currentUser.username && (
             <button onClick={handleDelete}>delete</button>
           )}
         </div>
