@@ -169,6 +169,7 @@ const Profile = () => {
                     <span>{data.email}</span>
                   </div>
                 </div>
+                <div className="bio">{data.bio}</div>
               </div>
               <div className="right">
                   <div className="followers">

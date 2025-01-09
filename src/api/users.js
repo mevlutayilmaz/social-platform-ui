@@ -58,3 +58,11 @@ export const unfollowUser = async (username) => {
     console.error('API isteği başarısız:', error);
   }
 }
+
+export const updateUser = async (data) => {
+  try {    
+    await api.put("/users/updateUser", data, { requiresAuth: true }); 
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
+}

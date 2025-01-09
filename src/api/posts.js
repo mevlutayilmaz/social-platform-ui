@@ -1,8 +1,8 @@
 import api from "./axiosConfig";
 
-export const getAllPosts = async (pageCount = 1, itemCount = 10) => {
+export const getAllPosts = async (pageCount = 1, itemCount = 10, username = null) => {
   try {
-    const response = await api.get("/posts/getAllPosts", { params: { pageCount, itemCount }, requiresAuth: true });
+    const response = await api.get("/posts/getAllPosts", { params: { pageCount, itemCount, username }, requiresAuth: true });
     return response.data;
   } catch (error) {
     console.error('API isteği başarısız:', error);

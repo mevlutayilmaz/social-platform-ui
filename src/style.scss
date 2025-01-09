@@ -1,8 +1,12 @@
+* {
+  margin: 0;
+}
+
 $themes: (
   light: (
     textColor: #000,
     bg: white,
-    logo: darkblue,
+    logo: black,
     bgSoft: #f6f3f3,
     textColorSoft: #555,
     border: lightgray,

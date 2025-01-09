@@ -6,13 +6,13 @@ import { useState } from "react";
 import Error from "../error/Error";
 import Loading from "../loading/Loading";
 
-const Posts = () => {
+const Posts = ({ username = null }) => {
   const [pageCount, setPageCount] = useState(1);
   const [itemCount, setItemCount] = useState(20);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["posts"],
-    queryFn: async () => await getAllPosts(pageCount, itemCount),
+    queryFn: async () => await getAllPosts(pageCount, itemCount, username),
   });
 
   return (

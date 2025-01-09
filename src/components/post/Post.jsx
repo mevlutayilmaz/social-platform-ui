@@ -53,6 +53,7 @@ const Post = ({ post }) => {
               <Link
                 to={`/profile/${post.user.username}`}
                 style={{ textDecoration: "none", color: "inherit" }}
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
               >
                 <span className="name">{post.user.nameSurname}</span>
               </Link>

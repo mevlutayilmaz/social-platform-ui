@@ -1,34 +1,46 @@
 import { useState } from "react";
 import "./update.scss";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
+import { updateUser } from "../../api/users";
 
 const Update = ({ setOpenUpdate, user }) => {
   const [texts, setTexts] = useState({
-    name: user.nameSurname,
+    nameSurname: user.nameSurname,
     email: user.email,
-    password: "password",
     city: user.city,
     bio: user.bio
+  });
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: updateUser,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["user"]);
+    }
   });
 
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
+  const handleClick = () => {
+    mutation.mutate(texts);
+    setOpenUpdate(false)
   };
 
   return (
     <div className="update">
       <div className="wrapper">
         <h1>Update Your Profile</h1>
-        <form>
-          <label>Name</label>
+        <form action={handleClick}>
+          <label>NameSurname</label>
           <input
             type="text"
-            value={texts.name}
-            name="name"
+            value={texts.nameSurname}
+            name="nameSurname"
             onChange={handleChange}
+            required
           />
           <label>Email</label>
           <input
@@ -36,13 +48,7 @@ const Update = ({ setOpenUpdate, user }) => {
             value={texts.email}
             name="email"
             onChange={handleChange}
-          />
-          <label>Password</label>
-          <input
-            type="password"
-            value={texts.password}
-            name="password"
-            onChange={handleChange}
+            required
           />
           <label>City</label>
           <input
@@ -50,16 +56,18 @@ const Update = ({ setOpenUpdate, user }) => {
             name="city"
             value={texts.city}
             onChange={handleChange}
+            required
           />
-          <label>Bio (max 10 characters)</label>
+          <label>Bio (max 40 characters)</label>
           <input
             type="text"
             name="bio"
             value={texts.bio}
             onChange={handleChange}
             maxLength={40}
+            required
           />
-          <button className="update-button" onClick={handleClick}>
+          <button type="submit" className="update-button">
             Update
           </button>
         </form>
