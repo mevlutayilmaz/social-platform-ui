@@ -2,68 +2,82 @@ import { useContext, useState } from "react";
 import "./comments.scss";
 import { AuthContext } from "../../context/authContext";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
 import moment from "moment";
+import { getComments, addComment, deleteComment } from "../../api/comments"
+import Loading from "../loading/Loading";
+import Error from "../error/Error";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 
 const Comments = ({ postId }) => {
-  const [desc, setDesc] = useState("");
+  const [content, setContent] = useState("");
   const { currentUser } = useContext(AuthContext);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const { isLoading, error, data } = useQuery(["comments"], () =>
-    makeRequest.get("/comments?postId=" + postId).then((res) => {
-      return res.data;
-    })
-  );
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["comments"],
+    queryFn: async () => await getComments(postId),
+  });
 
   const queryClient = useQueryClient();
 
-  const mutation = useMutation(
-    (newComment) => {
-      return makeRequest.post("/comments", newComment);
-    },
-    {
-      onSuccess: () => {
-        // Invalidate and refetch
-        queryClient.invalidateQueries(["comments"]);
-      },
+  const mutation = useMutation({
+    mutationFn: addComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments"]);
     }
-  );
+  });
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteComment,
+    onSuccess: () => {
+      queryClient.invalidateQueries(["comments"]);
+    }
+  });
 
   const handleClick = async (e) => {
     e.preventDefault();
-    mutation.mutate({ desc, postId });
-    setDesc("");
+    mutation.mutate({ postId, content });
+    setContent("");
+  };
+
+  const handleDelete = (id) => {
+    deleteMutation.mutate(id);
   };
 
   return (
     <div className="comments">
       <div className="write">
-        {/* <img src={"/upload/" + currentUser.profilePic} alt="" /> */}
+        <img src={currentUser.profilePicture} alt="" />
         <input
           type="text"
           placeholder="write a comment"
-          value={desc}
-          onChange={(e) => setDesc(e.target.value)}
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
         />
         <button onClick={handleClick}>Send</button>
       </div>
       {error
-        ? "Something went wrong"
+        ? <Error />
         : isLoading
-        ? "loading"
+        ? <Loading />
         : data.map((comment) => (
             <div className="comment" key={comment.id}>
-              <img src={"/upload/" + comment.profilePic} alt="" />
+              <img src={comment.user.profilePicture} alt="" />
               <div className="info">
-                <span>{comment.name}</span>
-                <p>{comment.desc}</p>
+                <span>{comment.user.nameSurname}</span>
+                <p>{comment.content}</p>
               </div>
-              <span className="date">
-                {moment(comment.createdAt).fromNow()}
-              </span>
+              <div className="date-container">
+                <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} className="more-icon" />
+                {menuOpen && comment.user.username === currentUser.username && (
+                  <button onClick={() => handleDelete(comment.id)} className="delete-button">delete</button>
+                )}
+                <span className="date">{moment(comment.createdDate).fromNow()}</span>
+              </div>
             </div>
           ))}
     </div>
+    
   );
 };
 

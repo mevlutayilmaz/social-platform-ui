@@ -9,32 +9,80 @@
       height: 300px;
       position: relative;
 
-      .cover {
-        width: 100%;
+      .cover-wrapper {
+        position: relative;
         height: 100%;
-        object-fit: cover;
+
+        .cover {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .icon-wrapper {
+          position: absolute;
+          bottom: 10px;
+          right: 10px;
+          background-color: rgba(0, 0, 0, 0.6);
+          color: white;
+          padding: 8px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            font-size: 16px;
+          }
+        }
       }
 
-      .profilePic {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-        object-fit: cover;
+      .profilePic-wrapper {
         position: absolute;
         left: 0;
         right: 0;
-        margin: auto;
         top: 200px;
+        margin: auto;
+        width: 200px;
+        height: 200px;
+        z-index: 1;
+
+        .profilePic {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        .icon-wrapper {
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          background-color: rgba(0, 0, 0, 0.6);
+          color: white;
+          padding: 8px;
+          border-radius: 50%;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          svg {
+            font-size: 16px;
+          }
+        }
       }
     }
+
     .profileContainer {
       padding: 20px 70px;
 
-      @include mobile{
+      @include mobile {
         padding: 10px;
       }
 
-      @include tablet{
+      @include tablet {
         padding: 20px;
       }
 
@@ -51,8 +99,9 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 20px;
+        position: relative;
 
-        @include mobile{
+        @include mobile {
           flex-direction: column;
           height: 30vh;
           padding: 20px;
@@ -64,21 +113,58 @@
           display: flex;
           gap: 10px;
 
-          @include tablet{
+          @include tablet {
             flex-wrap: wrap;
           }
 
-          a{
+          a {
             color: themed("textColorSoft");
           }
         }
 
         .center {
-          flex: 1;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 10px;
+
+          .edit-wrapper{
+            position: absolute;
+            top:10px;
+            right:10px;
+          
+            .follow-button {
+                padding: 8px 16px;
+                border-radius: 5px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+                border: 2px solid transparent;
+                font-size: 14px;
+
+              &.follow {
+                background-color: #5271ff;
+                color: white;
+
+                &:hover {
+                    background-color: darken(#5271ff, 10%);
+                }
+              }
+
+                &.unfollow {
+                    background-color: transparent;
+                    color: themed("textColor");
+                    border-color: gray;
+                    &:hover {
+                        border-color: darken(gray, 10%);
+                        background-color: #d3d3d329;
+                    }
+              }
+             }
+            }
+
 
           span {
             font-size: 30px;
@@ -102,6 +188,7 @@
               }
             }
           }
+
           button {
             border: none;
             background-color: #5271ff;
@@ -113,11 +200,28 @@
         }
 
         .right {
-          flex: 1;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-          gap: 10px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 20px;
+        
+
+            .followers,
+            .following {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              cursor: pointer;
+
+              .title {
+                  font-size: 14px;
+                  color: themed("textColorSoft");
+              }
+              .count {
+                  font-size: 15px;
+              }
+          }
         }
       }
     }

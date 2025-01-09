@@ -59,7 +59,7 @@ const Post = ({ post }) => {
               <span className="date">{moment(post.createdDate).fromNow()}</span>
             </div>
           </div>
-          <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
+          <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} cursor="pointer" />
           {menuOpen && post.user.username === currentUser.username && (
             <button onClick={handleDelete}>delete</button>
           )}
