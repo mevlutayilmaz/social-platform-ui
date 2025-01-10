@@ -18,6 +18,14 @@
         justify-content: space-between;
         position: relative;
 
+        svg {
+          padding: 3px;
+          &:hover {
+            background-color: #eee;
+            border-radius: 2px;
+          }
+        }
+
         .userInfo {
           display: flex;
           gap: 20px;
@@ -48,9 +56,34 @@
           right: 0;
           border: none;
           background-color: #f0544f;
-          padding: 5px;
+          padding: 6px 10px;
           cursor: pointer;
           color: white;
+          border-radius: 4px;
+          font-size: 13px;
+          font-weight: 500;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: background-color 0.3s ease, transform 0.1s ease;
+          z-index: 10;
+        
+          &:hover {
+            background-color: #d1413c;
+          }
+        
+          &:focus {
+            outline: none;
+              box-shadow: 0 0 0 2px rgba(240, 84, 79, 0.4);
+        
+          }
+          &:active {
+            transform: scale(0.95);
+          }
+            &--open {
+              display: block;
+            }
+            &--hidden {
+                display: none;
+            }
         }
       }
 
@@ -76,6 +109,15 @@
           gap: 10px;
           cursor: pointer;
           font-size: 14px;
+
+          svg {
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            &:hover {
+              transform: scale(1.1);
+              filter: brightness(1.2);
+           }
+          }
         }
       }
     }

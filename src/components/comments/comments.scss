@@ -48,8 +48,25 @@
         gap: 3px;
         align-items: flex-start;
 
-        span {
-          font-weight: 500;
+        .name-and-date {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          text-align: center;
+
+          span {
+            font-weight: 500;
+          }
+
+          .dot {
+            color: gray;
+          }
+
+          .date {
+            color: gray;
+            font-size: 11px;
+            font-weight: 300;
+          }
         }
 
         p {
@@ -60,31 +77,62 @@
       .date-container {
         flex: 1;
         display: flex;
-        align-items: center;
-        justify-content: flex-end;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
         position: relative;
-      }
+        height: 100%;
 
-      .date {
-        color: gray;
-        font-size: 12px;
-        margin-left: 5px;
-      }
-      .more-icon {
-        position: absolute;
-        top: 0;
-        right: 5px;
-        cursor: pointer;
-      }
-      .delete-button {
-        position: absolute;
-        top: 30px;
-        right: 0;
-        border: none;
-        background-color: #f0544f;
-        padding: 5px;
-        cursor: pointer;
-        color: white;
+        .more-icon {
+          position: relative;
+          top: 0;
+          right: 0;
+          cursor: pointer;
+          &:hover {
+            background-color: #eee;
+            border-radius: 2px;
+          }
+        }
+        .delete-button {
+          position: absolute;
+          top: 26px;
+          right: 0;
+          border: none;
+          background-color: #f0544f;
+          padding: 6px 10px;
+          cursor: pointer;
+          color: white;
+          border-radius: 4px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          font-size: 13px;
+          transition: background-color 0.3s ease;
+          &:hover {
+            background-color: darken(#f0544f, 10%);
+          }
+          &:focus {
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+          }
+        }
+        .like-container {
+          display: flex;
+          align-items: center;
+          svg {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out;
+            &:hover {
+              transform: scale(1.1);
+              filter: brightness(1.2);
+           }
+          }
+          span {
+            font-size: 12px;
+            color: themed("textColorSoft");
+            font-weight: 300;
+          }
+        }
       }
     }
   }

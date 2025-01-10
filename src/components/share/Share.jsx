@@ -34,6 +34,11 @@ const Share = () => {
     setFile(null);
   };
 
+  const handleClear = () => {
+    setFile(null);
+    setContent("")
+  }
+
   return (
     <div className="share">
       <div className="container">
@@ -78,7 +83,8 @@ const Share = () => {
             </div>
           </div>
           <div className="right">
-            <button onClick={handleClick}>Share</button>
+            <button className="clear" onClick={handleClear}>Clear</button>
+            <button className="share" onClick={handleClick}>Share</button>
           </div>
         </div>
       </div>

@@ -5,9 +5,10 @@ import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import Update from "../../components/update/Update";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { getUserByUsername, uploadCoverPic, uploadProfilePic, followUser, unfollowUser } from "../../api/users";
 import { Save, Cancel, X, FacebookTwoTone, Instagram, LinkedIn, Place, EmailOutlined, Edit } from "@mui/icons-material";
+import UserList from "../../components/userList/UserList";
 
 const Profile = () => {
   const [coverPic, setCoverPic] = useState(null);
@@ -15,6 +16,8 @@ const Profile = () => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const { currentUser, setCurrentUser } = useContext(AuthContext);
   const { username } = useParams();
+  const [isFollowersModalOpen, setIsFollowersModalOpen] = useState(false);
+  const [isFollowingModalOpen, setIsFollowingModalOpen] = useState(false);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
@@ -22,6 +25,10 @@ const Profile = () => {
   });
 
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.invalidateQueries(["user"]);
+  }, [username]);
 
   const mutation = useMutation({
     mutationFn: async () => {
@@ -172,11 +179,11 @@ const Profile = () => {
                 <div className="bio">{data.bio}</div>
               </div>
               <div className="right">
-                  <div className="followers">
+                  <div className="followers" onClick={() => setIsFollowersModalOpen(true)}>
                       <span className="title">Followers</span>
                       <span className="count">{data.follower}</span>
                   </div>
-                  <div className="following">
+                  <div className="following" onClick={() => setIsFollowingModalOpen(true)}>
                       <span className="title">Following</span>
                       <span className="count">{data.following}</span>
                   </div>
@@ -187,6 +194,19 @@ const Profile = () => {
         </>
       )}
       {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data} />}
+      {isFollowersModalOpen && <UserList
+        isOpen={isFollowersModalOpen}
+        onClose={() => setIsFollowersModalOpen(false)}
+        username={username}
+        type="Followers"
+      />}
+
+      {isFollowingModalOpen && <UserList
+        isOpen={isFollowingModalOpen}
+        onClose={() => setIsFollowingModalOpen(false)}
+        username={username}
+        type="Following"
+      />}
     </div>
   );
 };

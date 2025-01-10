@@ -23,7 +23,7 @@
           position: absolute;
           bottom: 10px;
           right: 10px;
-          background-color: rgba(0, 0, 0, 0.6);
+          background-color: black;
           color: white;
           padding: 8px;
           border-radius: 50%;
@@ -31,6 +31,10 @@
           display: flex;
           align-items: center;
           justify-content: center;
+
+          &:hover {
+            background-color: lighten(black, 20%);
+          }
 
           svg {
             font-size: 16px;
@@ -67,6 +71,9 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          &:hover {
+            background-color: lighten(black, 20%);
+          }
 
           svg {
             font-size: 16px;
@@ -123,63 +130,71 @@
         }
 
         .center {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            margin: 10px;
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 10px;
+          margin: 10px;
 
-            .bio {
-              width: 100%;
-              text-align: center;
-              color: themed("textColorSoft");
-              font-style: italic;
-              font-size: 14px;
+          .bio {
+            width: 100%;
+            text-align: center;
+            color: themed("textColorSoft");
+            font-style: italic;
+            font-size: 14px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: auto;
+
+            @include mobile {
               max-width: 100%;
-              margin-left: auto;
-              margin-right: auto;
-              margin-top: auto;
-
-               @include mobile {
-                  max-width: 100%;
-              }
+            }
           }
 
-          .edit-wrapper{
+          .edit-wrapper {
             position: absolute;
-            top:10px;
-            right:10px;
-          
+            top: 10px;
+            right: 10px;
+
             .follow-button {
-                padding: 8px 16px;
-                border-radius: 5px;
-                font-weight: 600;
-                cursor: pointer;
-                transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-                border: 2px solid transparent;
-                font-size: 14px;
+              padding: 8px 16px;
+              border-radius: 5px;
+              font-weight: 600;
+              cursor: pointer;
+              transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+              border: 2px solid transparent;
+              font-size: 14px;
 
               &.follow {
-                background-color: #5271ff;
-                color: white;
+                background-color: themed("textColor");
+                color: themed("bg");
 
                 &:hover {
-                    background-color: darken(#5271ff, 10%);
+                  opacity: 0.8;
                 }
               }
 
-                &.unfollow {
-                    background-color: transparent;
-                    color: themed("textColor");
-                    border-color: gray;
-                    &:hover {
-                        border-color: darken(gray, 10%);
-                        background-color: #d3d3d329;
-                    }
+              &.unfollow {
+                background-color: transparent;
+                color: themed("textColor");
+                border-color: gray;
+                &:hover {
+                  border-color: darken(gray, 10%);
+                  background-color: #d3d3d329;
+                }
               }
-             }
             }
+
+            svg {
+              padding: 3px;
+              &:hover {
+                background-color: themed("bgSoft");
+                border-radius: 20px;
+              }   
+            }
+          }
 
           span {
             font-size: 25px;
@@ -221,27 +236,26 @@
         }
 
         .right {
-            flex: 1;
+          flex: 1;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          gap: 20px;
+
+          .followers,
+          .following {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: flex-end;
-            gap: 20px;
-        
+            cursor: pointer;
 
-            .followers,
-            .following {
-              display: flex;
-              flex-direction: column;
-              align-items: center;
-              cursor: pointer;
-
-              .title {
-                  font-size: 14px;
-                  color: themed("textColorSoft");
-              }
-              .count {
-                  font-size: 15px;
-              }
+            .title {
+              font-size: 14px;
+              color: themed("textColorSoft");
+            }
+            .count {
+              font-size: 15px;
+            }
           }
         }
       }

@@ -66,3 +66,30 @@ export const updateUser = async (data) => {
     console.error('API isteği başarısız:', error);
   }
 }
+
+export const getFollowers = async (username) => {
+  try {    
+    const response = await api.get("/users/getFollowers", { params: { username }, requiresAuth: true });
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
+}
+
+export const getFollowing = async (username) => {
+  try {
+    const response = await api.get("/users/getFollowing", { params: { username }, requiresAuth: true });
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
+}
+
+export const suggestionsUser = async () => {
+  try {
+    const response = await api.get("/users/suggestionsUser", { requiresAuth: true });
+    return response.data;
+  } catch (error) {
+    console.error('API isteği başarısız:', error);
+  }
+}
