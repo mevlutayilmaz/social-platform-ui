@@ -45,7 +45,9 @@ const Share = () => {
         <div className="top">
           <div className="left">
             <img src={currentUser.profilePicture} alt="" />
-            <input
+            <textarea
+              rows="1"
+              maxLength="200"
               type="text"
               placeholder={`What's on your mind ${currentUser.nameSurname}?`}
               onChange={(e) => setContent(e.target.value)}

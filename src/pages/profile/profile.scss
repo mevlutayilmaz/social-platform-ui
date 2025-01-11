@@ -31,9 +31,11 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: transform 0.3s ease;
 
           &:hover {
             background-color: lighten(black, 20%);
+            transform: scale(1.1);
           }
 
           svg {
@@ -71,8 +73,11 @@
           display: flex;
           align-items: center;
           justify-content: center;
+          transition: transform 0.3s ease;
+
           &:hover {
             background-color: lighten(black, 20%);
+            transform: scale(1.1);
           }
 
           svg {
@@ -181,7 +186,7 @@
                 color: themed("textColor");
                 border-color: gray;
                 &:hover {
-                  border-color: darken(gray, 10%);
+                  border-color: darken(gray, 20%);
                   background-color: #d3d3d329;
                 }
               }
@@ -189,10 +194,11 @@
 
             svg {
               padding: 3px;
+              transition: transform 0.3s ease;
+
               &:hover {
-                background-color: themed("bgSoft");
-                border-radius: 20px;
-              }   
+                transform: scale(1.2);
+              }
             }
           }
 
