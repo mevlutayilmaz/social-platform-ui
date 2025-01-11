@@ -6,14 +6,14 @@ import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link } from "react-router-dom";
 import Comments from "../comments/Comments";
-import { useContext, useState } from "react";
+import { forwardRef, useContext, useState } from "react";
 import moment from "moment";
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../context/authContext";
 import { likePost, undoLikePost } from"../../api/likes"
 import { deletePost } from "../../api/posts";
 
-const Post = ({ post }) => {
+const Post = forwardRef(({ post }, ref) => {
   const { currentUser } = useContext(AuthContext);
 
   const [commentOpen, setCommentOpen] = useState(false);
@@ -44,7 +44,7 @@ const Post = ({ post }) => {
   };
 
   return (
-    <div className="post">
+    <div className="post" ref={ref}>
       <div className="container">
         <div className="user">
           <div className="userInfo">
@@ -94,6 +94,6 @@ const Post = ({ post }) => {
       </div>
     </div>
   );
-};
+});
 
 export default Post;

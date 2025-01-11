@@ -44,20 +44,17 @@ const RightBar = () => {
             ? <Loading />
             : data.map((user, index) => (
               <div className="user" key={index}>
-                <div className="userInfo">
-                  <img
-                    src={user.profilePicture}
-                    alt=""
-                  />
-                  <div className="online" />
-                  <Link
-                    to={`/profile/${user.username}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  >
+                <Link
+                  to={`/profile/${user.username}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                  <div className="userInfo">
+                    <img src={user.profilePicture} alt="" />
+                    <div className="online" />
                     <span>{user.nameSurname}</span>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
               </div>
             ))}
         </div>
@@ -69,19 +66,16 @@ const RightBar = () => {
             ? <Loading />
             : sData.map((user, index) => (
               <div className="user" key={index}>
-                <div className="userInfo">
-                  <img
-                    src={user.profilePicture}
-                    alt=""
-                  />
-                  <Link
-                    to={`/profile/${user.username}`}
-                    style={{ textDecoration: "none", color: "inherit" }}
-                    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-                  >
+                <Link
+                  to={`/profile/${user.username}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                  onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                >
+                  <div className="userInfo">
+                    <img src={user.profilePicture} alt="" />
                     <span>{user.nameSurname}</span>
-                  </Link>
-                </div>
+                  </div>
+                </Link>
                 <div className="buttons">
                   <button onClick={() => handleFollow(user.username)}>Follow</button>
                 </div>

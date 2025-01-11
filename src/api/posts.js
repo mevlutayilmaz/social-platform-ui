@@ -1,6 +1,6 @@
 import api from "./axiosConfig";
 
-export const getAllPosts = async (pageCount = 1, itemCount = 10, username = null) => {
+export const getAllPosts = async (pageCount = 1, itemCount = 2, username = null) => {
   try {
     const response = await api.get("/posts/getAllPosts", { params: { pageCount, itemCount, username }, requiresAuth: true });
     return response.data;

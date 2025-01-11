@@ -91,10 +91,9 @@
             padding: 6px 10px;
             color: white;
             cursor: pointer;
-            border-radius: 5px;
+            border-radius: 4px;
             font-weight: 600;
             transition: background-color 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             margin: 0;
       
             &:hover {
@@ -107,10 +106,10 @@
             }
       
             &.share {
-              background-color: #5271ff;
+              background-color: #6480ff;
             }
             &.clear {
-               background-color: #e74c3c;
+               background-color: #ff796b;
             }
           }
         }

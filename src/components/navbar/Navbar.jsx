@@ -54,7 +54,7 @@ const Navbar = () => {
             <span>{currentUser.nameSurname}</span>
           </div>
         </Link>
-        <LogoutRounded onClick={hanleClick}  cursor="pointer" />
+        <LogoutRounded onClick={hanleClick} htmlColor="#dc3545" cursor="pointer" />
       </div>
     </div>
   );

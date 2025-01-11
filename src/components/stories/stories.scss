@@ -62,20 +62,29 @@
       height: 100%;
       object-fit: cover;
       object-position: center;
+      cursor: pointer;
     }
 
-    .story-info { /* story-info div için stiller */
+    .story-info {
       position: absolute;
-      bottom: 10px;
-      left: 10px;
+      bottom: 6px;
+      left: 6px;
+      right: 6px;
       display: flex;
       align-items: center;
       color: white;
+      font-size: 12px;
       font-weight: 500;
-      background-color: rgba(0, 0, 0, 0.4); // Yarı saydam siyah arka plan
-        padding: 3px 5px;
-        border-radius: 4px;
-        backdrop-filter: blur(5px); // Blur efekti
+      background-color: rgba(0, 0, 0, 0.4);
+      padding: 3px 5px;
+      border-radius: 4px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        transform: scale(1.05);
+      }
 
       @include mobile {
         display: none;
@@ -88,17 +97,17 @@
         object-fit: cover;
       }
     }
-    &.create-story { /* create-story class'ı için özel stil */
+    &.create-story {
       display: flex;
       align-items: center;
       justify-content: center;
-        img {
-          object-fit: cover;
-          object-position: center;
-        }
+      img {
+        object-fit: cover;
+        object-position: center;
+      }
     }
 
-    .create-button { /* create-button class'ı için özel stil */
+    .create-button {
       position: absolute;
       bottom: 10px;
       right: 10px;
@@ -114,6 +123,11 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      transition: transform 0.3s ease;
+
+      &:hover {
+        transform: scale(1.1);
+      }
 
       @include mobile {
         position: absolute;
@@ -123,6 +137,94 @@
         height: 25px;
         font-size: 16px;
         border: 1px solid white;
+      }
+    }
+  }
+
+  .story-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+
+    .story-modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 300px;
+      position: relative;
+
+      .story-image-upload {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 300px;
+        height: 500px;
+        border: 2px dashed lightgray;
+        margin-bottom: 10px;
+        position: relative;
+        overflow: hidden;
+
+        .preview-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .upload-placeholder {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          span {
+            font-size: 16px;
+            color: gray;
+          }
+        }
+      }
+      .modal-buttons {
+        display: flex;
+        justify-content: space-around;
+        gap: 10px;
+        button {
+          padding: 10px 15px;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+
+          &.cancel-button {
+            background-color: #f1b0b7;
+            color: #6b0c15;
+            &:hover {
+              background-color: darken(#f1b0b7, 10%);
+            }
+          }
+
+          &.upload-button {
+            background-color: #a7d1a9;
+            color: #0e4912;
+            &:hover {
+              background-color: darken(#a7d1a9, 10%);
+            }
+          }
+
+          &.clear-button {
+            background-color: #a3c6ed;
+            color: #00326b;
+            &:hover {
+              background-color: darken(#a3c6ed, 10%);
+            }
+          }
+        }
       }
     }
   }
